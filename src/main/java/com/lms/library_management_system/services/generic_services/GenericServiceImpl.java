@@ -21,7 +21,7 @@ public abstract class GenericServiceImpl<T, ID> implements GenericService<T, ID>
     protected void validatePost(T entity) {
     }
 
-    protected void validatePut(T entity) {
+    protected void validatePut(ID id, T entity) {
     }
 
     @Override
@@ -43,10 +43,10 @@ public abstract class GenericServiceImpl<T, ID> implements GenericService<T, ID>
 
     @Override
     public T update(ID id, T entity) {
-        validatePut(entity);
         T existingEntity = repository.findById(id)
                 .orElseThrow(() -> new ErrorMessage("Entity not found with id: " + id));
         ObjectMapper.mapNonNullAndNonEmptyValues(entity, existingEntity);
+        validatePut(id, entity);
         return repository.save(existingEntity);
     }
 

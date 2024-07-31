@@ -26,19 +26,43 @@ public class PatronService extends GenericServiceImpl<Patron, Integer> {
         if (patron.name == null || patron.name.trim().isEmpty()) {
             errorMessages.put("name", "cannot be null or empty");
         }
-        if (patronRepository.findByName(patron.name).isPresent()) {
-            errorMessages.put(patron.name, "there is a patron with this name");
-        }
         if (patron.email == null || patron.email.trim().isEmpty()) {
             errorMessages.put("email", "cannot be null or empty");
-        }
-        if (patronRepository.findByEmail(patron.email).isPresent()) {
-            errorMessages.put(patron.email, "there is a patron with this email");
         }
         if (patron.phone_number == null || patron.phone_number.trim().isEmpty()) {
             errorMessages.put("phone_number", "cannot be null or empty");
         }
+        if (patronRepository.findByName(patron.name).isPresent()) {
+            errorMessages.put(patron.name, "there is a patron with this name");
+        }
+        if (patronRepository.findByEmail(patron.email).isPresent()) {
+            errorMessages.put(patron.email, "there is a patron with this email");
+        }
         if (patronRepository.findByPhoneNumber(patron.phone_number).isPresent()) {
+            errorMessages.put(patron.phone_number, "there is a patron with this phone number");
+        }
+
+        if (!errorMessages.isEmpty()) {
+            throw new InvalidException(errorMessages);
+        }
+    }
+
+    @Override
+    public void validatePut(Integer id, Patron patron) {
+        Map<String, String> errorMessages = new HashMap<>();
+
+        if (patronRepository.findByName(patron.name).isPresent() &&
+                patronRepository.findByName(patron.name).get().getId() != id) {
+            errorMessages.put(patron.name, "there is a patron with this name");
+        }
+
+        if (patronRepository.findByEmail(patron.email).isPresent() &&
+                patronRepository.findByEmail(patron.email).get().getId() != id) {
+            errorMessages.put(patron.email, "there is a patron with this email");
+        }
+
+        if (patronRepository.findByPhoneNumber(patron.phone_number).isPresent() &&
+                patronRepository.findByEmail(patron.phone_number).get().getId() != id) {
             errorMessages.put(patron.phone_number, "there is a patron with this phone number");
         }
 
