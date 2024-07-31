@@ -9,8 +9,8 @@ This project is a RESTful API for a Library Management System, built using Java 
 - **Borrowing Management**: Facilitate borrowing and returning of books by patrons.
 
 ## Technologies Used
-- Java 11
-- Spring Boot 2.x
+- Java 21
+- Spring Boot 3.3.2
 - Maven
 - SQL Server (or XAMPP SQL Database)
 - Integrated Security for database connection
