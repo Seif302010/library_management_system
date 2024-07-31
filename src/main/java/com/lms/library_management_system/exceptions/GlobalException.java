@@ -3,11 +3,10 @@ package com.lms.library_management_system.exceptions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InvalidIdException extends RuntimeException {
-    private final Map<String, String> errors = new HashMap<>();
+public abstract class GlobalException extends RuntimeException {
+    protected final Map<String, String> errors = new HashMap<>();
 
-    public InvalidIdException(Map<String, String> errors) {
-        super("Invalid IDs");
+    public GlobalException(Map<String, String> errors) {
         this.errors.putAll(errors);
     }
 

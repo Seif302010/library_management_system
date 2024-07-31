@@ -1,6 +1,6 @@
 package com.lms.library_management_system.services.specific_services;
 
-import com.lms.library_management_system.exceptions.InvalidIdException;
+import com.lms.library_management_system.exceptions.*;
 import com.lms.library_management_system.models.database_models.*;
 import com.lms.library_management_system.repositories.*;
 
@@ -23,18 +23,23 @@ public class BorrowingRecordService {
     @Autowired
     private PatronRepository patronRepository;
 
+    @Autowired
+    private BookService bookService;
+
     private void checkIds(Book book, Patron patron) {
         Map<String, String> errorMessages = new HashMap<>();
 
         if (book == null) {
             errorMessages.put("bookId", "Invalid book ID.");
+        } else if (book.available_copies == 0) {
+            errorMessages.put(book.title, "Not available for borrowing");
         }
         if (patron == null) {
             errorMessages.put("patronId", "Invalid patron ID.");
         }
 
         if (!errorMessages.isEmpty()) {
-            throw new InvalidIdException(errorMessages);
+            throw new InvalidException(errorMessages);
         }
     }
 
@@ -50,7 +55,7 @@ public class BorrowingRecordService {
                 .findByBookIdAndPatronIdAndReturnDateIsNull(bookId, patronId)
                 .isPresent();
         if (hasNotReturned) {
-            throw new IllegalStateException("The patron cannot borrow the same book until it is returned.");
+            throw new ErrorMessage("The patron cannot borrow the same book until it is returned.");
         }
 
         BorrowingRecord borrowingRecord = new BorrowingRecord();
@@ -70,11 +75,20 @@ public class BorrowingRecordService {
 
         BorrowingRecord borrowingRecord = borrowingRecordRepository
                 .findByBookIdAndPatronIdAndReturnDateIsNull(bookId, patronId)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ErrorMessage(
                         "No active borrowing record found for the given book and patron IDs"));
-
         borrowingRecord.setReturn_date(LocalDateTime.now());
 
         return borrowingRecordRepository.save(borrowingRecord);
+    }
+
+    public void modifyAvailableCopies(int bookId, int value) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new IllegalArgumentException(
+                "No book found with id: " + bookId));
+        if (book.available_copies < Math.abs(value) && value < 0) {
+            throw new ErrorMessage("Book available copies can't be negative.");
+        }
+        book.available_copies += value;
+        bookService.update(book.id, book);
     }
 }

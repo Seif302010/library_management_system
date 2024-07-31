@@ -14,21 +14,15 @@ public class BorrowingRecordController {
 
     @PostMapping("/{bookId}/patron/{patronId}")
     public ResponseEntity<?> borrowBook(@PathVariable int bookId, @PathVariable int patronId) {
-        try {
-            BorrowingRecord borrowingRecord = borrowingRecordService.borrowBook(bookId, patronId);
-            return ResponseEntity.ok(borrowingRecord);
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        BorrowingRecord borrowingRecord = borrowingRecordService.borrowBook(bookId, patronId);
+        borrowingRecordService.modifyAvailableCopies(bookId, -1);
+        return ResponseEntity.ok(borrowingRecord);
     }
 
     @PutMapping("/{bookId}/patron/{patronId}")
     public ResponseEntity<?> returnBook(@PathVariable int bookId, @PathVariable int patronId) {
-        try {
-            BorrowingRecord returnedRecord = borrowingRecordService.returnBook(bookId, patronId);
-            return ResponseEntity.ok(returnedRecord);
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        BorrowingRecord returnedRecord = borrowingRecordService.returnBook(bookId, patronId);
+        borrowingRecordService.modifyAvailableCopies(bookId, 1);
+        return ResponseEntity.ok(returnedRecord);
     }
 }

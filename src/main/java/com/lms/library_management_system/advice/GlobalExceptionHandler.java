@@ -11,13 +11,13 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(InvalidIdException.class)
-    public ResponseEntity<Map<String, String>> handleInvalidIdException(InvalidIdException ex) {
+    @ExceptionHandler(InvalidException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidException(InvalidException ex) {
         return new ResponseEntity<>(ex.getErrors(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleResourceNotFound(NotFoundException ex) {
+    @ExceptionHandler(ErrorMessage.class)
+    public ResponseEntity<Map<String, String>> handleResourceNotFound(ErrorMessage ex) {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
