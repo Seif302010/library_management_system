@@ -1,6 +1,9 @@
 package com.lms.library_management_system.controllers;
 
 import com.lms.library_management_system.services.specific_services.PatronService;
+
+import jakarta.validation.Valid;
+
 import com.lms.library_management_system.models.database_models.Patron;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,35 +16,34 @@ import java.util.List;
 public class PatronController {
 
     @Autowired
-    private PatronService PatronService;
+    private PatronService patronService;
 
     @GetMapping
     public List<Patron> getAllPatrons() {
-        return PatronService.getAll();
+        return patronService.getAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Patron> getPatronById(@PathVariable Integer id) {
-        return PatronService.getById(id)
+        return patronService.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Patron addPatron(@RequestBody Patron Patron) {
-        return PatronService.add(Patron);
+    public Patron addPatron(@Valid @RequestBody Patron Patron) {
+        return patronService.add(Patron);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Patron> updatePatron(@PathVariable Integer id, @RequestBody Patron Patron) {
-        return PatronService.getById(id)
-                .map(existingPatron -> ResponseEntity.ok(PatronService.update(id, Patron)))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Patron> updatePatron(@PathVariable Integer id, @RequestBody Patron patron) {
+        Patron updatedPatron = patronService.update(id, patron);
+        return ResponseEntity.ok(updatedPatron);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePatron(@PathVariable Integer id) {
-        PatronService.delete(id);
+        patronService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,6 +1,9 @@
 package com.lms.library_management_system.controllers;
 
 import com.lms.library_management_system.services.specific_services.BookService;
+
+import jakarta.validation.Valid;
+
 import com.lms.library_management_system.models.database_models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +31,14 @@ public class BookController {
     }
 
     @PostMapping
-    public Book addBook(@RequestBody Book book) {
+    public Book addBook(@Valid @RequestBody Book book) {
         return bookService.add(book);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Integer id, @RequestBody Book book) {
-        return bookService.getById(id)
-                .map(existingBook -> ResponseEntity.ok(bookService.update(id, book)))
-                .orElse(ResponseEntity.notFound().build());
+        Book updatedBook = bookService.update(id, book);
+        return ResponseEntity.ok(updatedBook);
     }
 
     @DeleteMapping("/{id}")

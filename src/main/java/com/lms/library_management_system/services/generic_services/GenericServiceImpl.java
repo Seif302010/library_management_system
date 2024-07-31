@@ -4,11 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
+import com.lms.library_management_system.exceptions.NotFoundException;
+import com.lms.library_management_system.helpers.ObjectMapper;
 
 public abstract class GenericServiceImpl<T, ID> implements GenericService<T, ID> {
 
     @Autowired
     protected JpaRepository<T, ID> repository;
+
+    protected void checkIdExistance(ID id) {
+        if (!repository.existsById(id)) {
+            throw new NotFoundException("Entity not found with id: " + id);
+        }
+    }
 
     @Override
     public List<T> getAll() {
@@ -17,6 +25,7 @@ public abstract class GenericServiceImpl<T, ID> implements GenericService<T, ID>
 
     @Override
     public Optional<T> getById(ID id) {
+        checkIdExistance(id);
         return repository.findById(id);
     }
 
@@ -27,15 +36,15 @@ public abstract class GenericServiceImpl<T, ID> implements GenericService<T, ID>
 
     @Override
     public T update(ID id, T entity) {
-        if (repository.existsById(id)) {
-            return repository.save(entity);
-        } else {
-            throw new RuntimeException("Entity not found");
-        }
+        T existingEntity = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Entity not found with id: " + id));
+        ObjectMapper.mapNonNullAndNonEmptyValues(entity, existingEntity);
+        return repository.save(existingEntity);
     }
 
     @Override
     public void delete(ID id) {
+        checkIdExistance(id);
         repository.deleteById(id);
     }
 }
