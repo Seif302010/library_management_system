@@ -1,0 +1,225 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Library Management System API Collection",
+    "collectionId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+    "dateExported": "2024-07-31T02:08:17.246Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "1b1f7235-5cd8-4e32-b2b3-f4b11cf0103b",
+            "name": "Book",
+            "containerId": "",
+            "created": "2024-07-30T13:02:09.667Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "c31786b8-dc44-40ca-b8a7-461d1bb9041f",
+            "name": "Patron",
+            "containerId": "",
+            "created": "2024-07-30T13:07:24.063Z",
+            "sortNum": 25000
+        },
+        {
+            "_id": "aa830fec-da31-42b0-947d-bf70505c930c",
+            "name": "Borrowing",
+            "containerId": "",
+            "created": "2024-07-30T13:02:48.058Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "3b081be9-6339-41d9-b997-88511972eadd",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "1b1f7235-5cd8-4e32-b2b3-f4b11cf0103b",
+            "name": "GET All",
+            "url": "http://localhost:8080/api/books",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-30T13:03:36.210Z",
+            "modified": "2024-07-30T13:23:52.043Z",
+            "headers": []
+        },
+        {
+            "_id": "ab6ce3fb-10cd-45f7-a8cd-7fe3c9e3a417",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "c31786b8-dc44-40ca-b8a7-461d1bb9041f",
+            "name": "GET All",
+            "url": "http://localhost:8080/api/patrons",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-30T13:07:24.063Z",
+            "modified": "2024-07-30T13:07:48.339Z",
+            "headers": []
+        },
+        {
+            "_id": "898fa940-efc6-4e13-9dd8-1229ec173aea",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "1b1f7235-5cd8-4e32-b2b3-f4b11cf0103b",
+            "name": "POST",
+            "url": "http://localhost:8080/api/books",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-07-30T13:05:23.968Z",
+            "modified": "2024-07-31T00:16:32.801Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\":\"book1\",\n  \"author\":\"author1\",\n  \"publication_year\":\"2016\",\n  \"ISBN\":\"555-333-888-222-33\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "b75c774b-1dc2-4a82-b379-b07553279ab3",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "c31786b8-dc44-40ca-b8a7-461d1bb9041f",
+            "name": "POST",
+            "url": "http://localhost:8080/api/patrons",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-07-30T13:07:24.064Z",
+            "modified": "2024-07-31T00:26:11.453Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"author1\",\n  \"email\":\"author1@gmail.com\",\n  \"phone_number\":\"+23349995555\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "f1d5d23a-55f6-419a-87d1-a1f162484a24",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "1b1f7235-5cd8-4e32-b2b3-f4b11cf0103b",
+            "name": "GET By Id",
+            "url": "http://localhost:8080/api/books/{id}",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-07-30T13:08:22.512Z",
+            "modified": "2024-07-30T13:09:19.247Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "",
+                    "isPath": true
+                }
+            ]
+        },
+        {
+            "_id": "14a8684d-0f69-401f-9bfc-37b30bc64f5e",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "c31786b8-dc44-40ca-b8a7-461d1bb9041f",
+            "name": "GET By Id",
+            "url": "http://localhost:8080/api/patrons/{id}",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-07-30T13:10:27.343Z",
+            "modified": "2024-07-30T13:10:41.290Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "",
+                    "isPath": true
+                }
+            ]
+        },
+        {
+            "_id": "187d41e9-a5f3-4bc1-8fc6-75c5870e4b55",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "1b1f7235-5cd8-4e32-b2b3-f4b11cf0103b",
+            "name": "PUT",
+            "url": "http://localhost:8080/api/books",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-07-30T13:05:26.095Z",
+            "modified": "2024-07-30T13:06:59.674Z",
+            "headers": []
+        },
+        {
+            "_id": "a0230a79-b86d-4fd0-ae60-ead20d27bbe7",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "c31786b8-dc44-40ca-b8a7-461d1bb9041f",
+            "name": "PUT",
+            "url": "http://localhost:8080/api/patrons",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-07-30T13:07:24.065Z",
+            "modified": "2024-07-30T13:07:53.898Z",
+            "headers": []
+        },
+        {
+            "_id": "90835e44-e67b-4efe-afd9-684ba939dedd",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "1b1f7235-5cd8-4e32-b2b3-f4b11cf0103b",
+            "name": "DELETE",
+            "url": "http://localhost:8080/api/books",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-07-30T13:05:27.855Z",
+            "modified": "2024-07-30T13:07:03.236Z",
+            "headers": []
+        },
+        {
+            "_id": "4678cb18-8eb8-4792-b21e-2e5f22574085",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "c31786b8-dc44-40ca-b8a7-461d1bb9041f",
+            "name": "DELETE",
+            "url": "http://localhost:8080/api/patrons",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-07-30T13:07:24.066Z",
+            "modified": "2024-07-30T13:07:57.252Z",
+            "headers": []
+        },
+        {
+            "_id": "8ca7cd40-0923-4b6c-a9b7-3a8c25ec8204",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "aa830fec-da31-42b0-947d-bf70505c930c",
+            "name": "Borrowing",
+            "url": "http://localhost:8080/api/borrow/{bookId}/patron/{patronId}",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2024-07-30T13:19:33.979Z",
+            "modified": "2024-07-31T02:04:14.277Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "bookId",
+                    "value": "1",
+                    "isPath": true
+                },
+                {
+                    "name": "patronId",
+                    "value": "1",
+                    "isPath": true
+                }
+            ]
+        },
+        {
+            "_id": "853448a9-ba82-4628-885b-2650198c653f",
+            "colId": "69ab262d-166b-48d5-94e3-2471ecd8f5ad",
+            "containerId": "aa830fec-da31-42b0-947d-bf70505c930c",
+            "name": "Returning",
+            "url": "http://localhost:8080/api/borrow/{bookId}/patron/{patronId}",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2024-07-30T23:51:22.957Z",
+            "modified": "2024-07-31T02:04:06.987Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "bookId",
+                    "value": "1",
+                    "isPath": true
+                },
+                {
+                    "name": "patronId",
+                    "value": "1",
+                    "isPath": true
+                }
+            ]
+        }
+    ],
+    "ref": "sL1Uod9bf5xv3Oog5iBrFsokCFXGfLW9MKA5rLvLbk0Zu35gkR10zccrT3uzVN0mckrsJqHmvsnAxaGBxMXf8A"
+}
